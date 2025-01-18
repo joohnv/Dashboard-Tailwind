@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard</title>
+   <link rel="stylesheet" href="styles.css">
+   <script src="index.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+
+<body>
+   <nav class="bg-cyan-950 border-b border-gray-200 fixed z-30 w-full">
+      <div class="px-3 py-3 lg:px-5 lg:pl-3">
+         <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+               <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
+                  class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
+                  <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                  </svg>
+                  <svg id="toggleSidebarMobileClose" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                  </svg>
+               </button>
+               <a href="#" class="text-xl font-bold flex items-center lg:ml-2.5">
+                  <img src="https://demo.themesberg.com/windster/images/logo.svg" class="h-6 mr-2" alt="Windster Logo">
+                  <span class="self-center whitespace-nowrap text-white">Victoria Bank</span>
+               </a>
+               <form action="#" method="GET" class="hidden lg:block lg:pl-32">
+                  <label for="topbar-search" class="sr-only">Search</label>
+                  <div class="mt-1 relative lg:w-64">
+                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd"
+                              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                              clip-rule="evenodd"></path>
+                        </svg>
+                     </div>
+                     <input type="text" name="email" id="topbar-search"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5"
+                        placeholder="Search">
+                  </div>
+               </form>
+            </div>
+            <div class="flex items-center">
+               <button id="toggleSidebarMobileSearch" type="button"
+                  class="lg:hidden text-gray-500 hover:text-gray-900 hover:bg-gray-100 p-2 rounded-lg">
+                  <span class="sr-only">Search</span>
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"></path>
+                  </svg>
+               </button>
+               <div class="hidden lg:flex items-center">
+               </div>
+               <a href="#"
+                  class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="size-4 mr-2">
+                     <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+                  Login
+               </a>
+            </div>
+         </div>
+      </div>
+   </nav>
+
+   <!--ASIDE-->
+   <div class="flex overflow-hidden bg-white pt-16">
+      <aside id="sidebar"
+         class="fixed hidden z-20 h-full top-0 left-0 pt-16 flex lg:flex flex-shrink-0 flex-col w-64 transition-width duration-75"
+         aria-label="Sidebar">
+         <div class="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white pt-0">
+            <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+               <div class="flex-1 px-3 bg-white divide-y space-y-1">
+                  <ul class="space-y-2 pb-2">
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                           </svg>
+                           <span class="ml-3">Dashboard</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                           </svg>
+                           <span class="ml-3 flex-1 whitespace-nowrap">Investment Accounts</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v7.5m2.25-6.466a9.016 9.016 0 0 0-3.461-.203c-.536.072-.974.478-1.021 1.017a4.559 4.559 0 0 0-.018.402c0 .464.336.844.775.994l2.95 1.012c.44.15.775.53.775.994 0 .136-.006.27-.018.402-.047.539-.485.945-1.021 1.017a9.077 9.077 0 0 1-3.461-.203M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                           </svg>
+                           <span class="ml-3 flex-1 whitespace-nowrap">Portfolio Management</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
+                           </svg>
+                           <span class="ml-3 flex-1 whitespace-nowrap">Market Insights</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                           </svg>
+                           <span class="ml-3 flex-1 whitespace-nowrap">Transactions</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#"
+                           class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                 d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                           </svg>
+                           <span class="ml-3 flex-1 whitespace-nowrap">Account Settings</span>
+                        </a>
+                     </li>
+                  </ul>
+
+                  <div class="space-y-2 pt-2">
+                     <a href="#"
+                        class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                           stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                        </svg>
+                        <span class="ml-3">Documentation</span>
+                     </a>
+                     <a href="#"
+                        class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                           stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
+                        </svg>
+                        <span class="ml-3">Components</span>
+                     </a>
+                     <a href="#"
+                        class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 group transition duration-75 flex items-center p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                           stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M16.712 4.33a9.027 9.027 0 0 1 1.652 1.306c.51.51.944 1.064 1.306 1.652M16.712 4.33l-3.448 4.138m3.448-4.138a9.014 9.014 0 0 0-9.424 0M19.67 7.288l-4.138 3.448m4.138-3.448a9.014 9.014 0 0 1 0 9.424m-4.138-5.976a3.736 3.736 0 0 0-.88-1.388 3.737 3.737 0 0 0-1.388-.88m2.268 2.268a3.765 3.765 0 0 1 0 2.528m-2.268-4.796a3.765 3.765 0 0 0-2.528 0m4.796 4.796c-.181.506-.475.982-.88 1.388a3.736 3.736 0 0 1-1.388.88m2.268-2.268 4.138 3.448m0 0a9.027 9.027 0 0 1-1.306 1.652c-.51.51-1.064.944-1.652 1.306m0 0-3.448-4.138m3.448 4.138a9.014 9.014 0 0 1-9.424 0m5.976-4.138a3.765 3.765 0 0 1-2.528 0m0 0a3.736 3.736 0 0 1-1.388-.88 3.737 3.737 0 0 1-.88-1.388m2.268 2.268L7.288 19.67m0 0a9.024 9.024 0 0 1-1.652-1.306 9.027 9.027 0 0 1-1.306-1.652m0 0 4.138-3.448M4.33 16.712a9.014 9.014 0 0 1 0-9.424m4.138 5.976a3.765 3.765 0 0 1 0-2.528m0 0c.181-.506.475-.982.88-1.388a3.736 3.736 0 0 1 1.388-.88m-2.268 2.268L4.33 7.288m6.406 1.18L7.288 4.33m0 0a9.024 9.024 0 0 0-1.652 1.306A9.025 9.025 0 0 0 4.33 7.288" />
+                        </svg>
+                        <span class="ml-3">Help</span>
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <footer class="bg-gray-100 text-center text-sm text-gray-600 py-3 mt-auto">
+               <p>© 2025 Victoria Bank</p>
+               <p>
+                  <a href="#" class="text-blue-500 hover:underline">Política de Privacidad</a> |
+                  <a href="#" class="text-blue-500 hover:underline">Términos y Condiciones</a>
+               </p>
+            </footer>
+         </div>
+      </aside>
+      <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
+      <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+         <main>
+            <div class="pt-6 px-4">
+               <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8  2xl:col-span-2">
+                     <div class="flex items-center justify-between mb-4">
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">$45,385</span>
+                           <h3 class="text-base font-normal text-gray-500">Wallet</h3>
+                        </div>
+                        <div class="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                           12.5%
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                 d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                 clip-rule="evenodd"></path>
+                           </svg>
+                        </div>
+                     </div>
+                     <!--CANVAS PARA EL GRAFICO-->
+                     <canvas id="salesChart" width="400" height="200"></canvas>
+                  </div>
+                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                     <div class="mb-4 flex items-center justify-between">
+                        <div>
+                           <h3 class="text-xl font-bold text-gray-900 mb-2">Latest Transactions</h3>
+                           <span class="text-base font-normal text-gray-500">This is a list of latest
+                              transactions</span>
+                        </div>
+                        <div class="flex-shrink-0">
+                           <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View
+                              all</a>
+                        </div>
+                     </div>
+                     <div class="flex flex-col mt-8">
+                        <div class="overflow-x-auto rounded-lg">
+                           <div class="align-middle inline-block min-w-full">
+                              <div class="shadow overflow-hidden sm:rounded-lg">
+                                 <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                       <tr>
+                                          <th scope="col"
+                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                             Transaction
+                                          </th>
+                                          <th scope="col"
+                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                             Date & Time
+                                          </th>
+                                          <th scope="col"
+                                             class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                             Amount
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                       <tr>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                             Buyed <span class="font-semibold">AMD</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 23 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $2300
+                                          </td>
+                                       </tr>
+                                       <tr class="bg-gray-50">
+                                          <td
+                                             class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                             Buyed <span class="font-semibold">IBM</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 23 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             -$670
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                             Buyed <span class="font-semibold">Alphabet</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 18 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $234
+                                          </td>
+                                       </tr>
+                                       <tr class="bg-gray-50">
+                                          <td
+                                             class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                             Buyed <span class="font-semibold">Microsoft</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 15 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $5000
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                             Buyed <span class="font-semibold">NVIDIA</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 15 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $2300
+                                          </td>
+                                       </tr>
+                                       <tr class="bg-gray-50">
+                                          <td
+                                             class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                                             Buyed <span class="font-semibold">APPLE</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 11 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $560
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                                             Buyed <span class="font-semibold">Amazon</span>
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                                             Apr 6 ,2025
+                                          </td>
+                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                                             $1437
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                     <div class="flex items-center">
+                        <img src="https://demo.tailadmin.com/src/images/brand/brand-07.svg" alt="Apple Logo" class="w-9 h-9 mr-3"> 
+                        <div class="flex-shrink-0 flex items-center">
+                           <div>
+                              <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">2,340</span>
+                              <h3 class="text-base font-normal text-gray-500">Apple Stocks</h3>
+                           </div>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                           14.6%
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                 d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                 clip-rule="evenodd"></path>
+                           </svg>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                     <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">15,355</span>
+                           <h3 class="text-base font-normal text-gray-500">Liquidity</h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
+                           32.9%
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                 d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                 clip-rule="evenodd"></path>
+                           </svg>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                     <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">12385</span>
+                           <h3 class="text-base font-normal text-gray-500">Dividends paid</h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-red-500 text-base font-bold">
+                           -2.7%
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                 d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+                                 clip-rule="evenodd"></path>
+                           </svg>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </main>
+      </div>
+   </div>
+</body>
+
+</html>
